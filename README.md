@@ -1,6 +1,6 @@
 # booster_bears
 
-> Booster Bears website
+> Starter Website for Booster Bears
 
 ## Build Setup
 
