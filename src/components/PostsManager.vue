@@ -4,3 +4,4 @@
     <p>Only authenticated users should see this page</p>
   </div>
 </template>
+
