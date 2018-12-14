@@ -1,18 +1,39 @@
 <template>
   <div id="app">
-    <header>
-      <span>Vue.js PWA</span>
-    </header>
+    <b-navbar toggleable="md" type="dark" variant="dark">
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-navbar-brand to="/">Booster Bears</b-navbar-brand>
+      <b-collapse is-nav id="nav_collapse">
+        <b-navbar-nav>
+          <b-nav-item to="/">Home</b-nav-item>
+          <b-nav-item to="/about-us">About Us</b-nav-item>
+          <b-nav-item to="/mdb">MDB Tutorial</b-nav-item>
+          <b-nav-item to="/posts-manager">Posts Manager</b-nav-item>
+          <b-nav-item href="#" v-if="!activeUser">
+            <button id="signin-button" v-on:click=handleSignInClick>Sign In</button>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+          </b-nav-item>
+          <b-nav-item href="#" @click.prevent="logout" v-else>Logout</b-nav-item>
+          <button id="signout-button" v-on:click='handleSignOutClick'>Sign Out</button>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
+      <!-- routes will be rendered here -->
       <router-view></router-view>
     </main>
+    <Footer></Footer>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      activeUser: null
+    }
+  }
 }
 </script>
 
