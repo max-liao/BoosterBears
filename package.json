@@ -23,6 +23,7 @@
     "mdbvue": "^4.9.0",
     "vue": "^2.5.21",
     "vue-google-authenticator": "^1.0.3",
+    "vue-google-oauth2": "^1.2.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

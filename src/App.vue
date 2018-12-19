@@ -9,12 +9,8 @@
           <b-nav-item to="/about-us">About Us</b-nav-item>
           <b-nav-item to="/mdb">MDB Tutorial</b-nav-item>
           <b-nav-item to="/posts-manager">Posts Manager</b-nav-item>
-          <b-nav-item href="#" v-if="!activeUser">
-            <button id="signin-button" v-on:click=handleSignInClick>Sign In</button>
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
-          </b-nav-item>
-          <b-nav-item href="#" @click.prevent="logout" v-else>Logout</b-nav-item>
-          <button id="signout-button" v-on:click='handleSignOutClick'>Sign Out</button>
+          <b-nav-item href="#" v-if="!activeUser" v-on:click=handleSignInClick>Sign In</b-nav-item>
+          <b-nav-item href="#" @click.prevent=handleSignOutClick v-else>Logout</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -25,13 +21,38 @@
     <Footer></Footer>
   </div>
 </template>
-
+<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+<script type='text/javascript' src='./router/config.js'></script>
 <script>
 export default {
   name: 'app',
   data () {
     return {
-      activeUser: null
+      activeUser: false
+    }
+  },
+  methods: {
+    async handleSignInClick (event) {
+      // Ideally the button should only show up after gapi.client.init finishes, so that this
+      // handler won't be called before OAuth is initialized.
+      await this.$gAuth.getAuthCode().then(authCode => {
+        console.log('Sign In')
+        console.log(authCode)
+        // return this.$http.post('', { code: authCode, redirect_uri: 'postmessage' })
+      }).then(response => {
+        // after ajax
+        this.activeUser = true
+      }).catch(error => {
+        // on fail do something
+        console.log(error)
+      })
+    },
+    handleSignOutClick (event) {
+      this.$gAuth.signOut().then(() => {
+        console.log('Sign Out')
+      }).catch(error => {
+        console.log(error)
+      })
     }
   }
 }
