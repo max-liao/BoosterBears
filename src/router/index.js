@@ -16,14 +16,10 @@ export default new Router({
       component: Hello
     },
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home
     },
-    // {
-    //   path: '/implicit/callback',
-    //   component: Auth.handleCallback()
-    // },
     {
       path: '/about-us',
       name: 'About',

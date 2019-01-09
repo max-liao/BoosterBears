@@ -35,12 +35,6 @@ epilogue.initialize({
   sequelize: database
 })
 
-// Create the dynamic REST resource for our Post model
-let userResource = epilogue.resource({
-  model: Post,
-  endpoints: ['/posts', '/posts/:id']
-})
-
 // Resets the database and launches the express app on :8081
 database
   .sync({ force: true })

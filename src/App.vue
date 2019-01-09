@@ -10,7 +10,7 @@
           <b-nav-item to="/mdb">MDB Tutorial</b-nav-item>
           <b-nav-item to="/posts-manager">Posts Manager</b-nav-item>
           <b-nav-item href="#" v-if="!activeUser" v-on:click=handleSignInClick>Sign In</b-nav-item>
-          <b-nav-item href="#" @click.prevent=handleSignOutClick v-else>Logout</b-nav-item>
+          <b-nav-item href="#" v-else @click.prevent=handleSignOutClick>Logout</b-nav-item>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
@@ -24,6 +24,8 @@
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 <script type='text/javascript' src='./router/config.js'></script>
 <script>
+import DBrouter from './db/server.js'
+
 export default {
   name: 'app',
   data () {
@@ -38,6 +40,7 @@ export default {
       await this.$gAuth.getAuthCode().then(authCode => {
         console.log('Sign In')
         console.log(authCode)
+        DBrouter.Adduser(authCode)
         // return this.$http.post('', { code: authCode, redirect_uri: 'postmessage' })
       }).then(response => {
         // after ajax
@@ -50,6 +53,7 @@ export default {
     handleSignOutClick (event) {
       this.$gAuth.signOut().then(() => {
         console.log('Sign Out')
+        this.activeUser = false
       }).catch(error => {
         console.log(error)
       })
